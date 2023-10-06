@@ -3,3 +3,6 @@
 Проект на тему: телеграм бот, который ищет аккорды песен и импортирует в разные форматы 🎸🎶:
 
 ![alt text](https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png)
+
+### Visitor count
+<img src="https://profile-counter.glitch.me/vanshkapoor/count.svg" />
