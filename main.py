@@ -11,16 +11,18 @@ bot = telebot.TeleBot(TELEGRAM_TOKEN, parse_mode=None)
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-	bot.reply_to(message, "Список команд:\n"
-						  "/start - список команд\n"
-						  "/dice - случайное число от 1-6\n"
-						  "/randint - случайное число из пользовательского диапозона\n"
-						  "/donate - поддержать автора деньгами\n")
+    bot.reply_to(message, "Список команд:\n"
+                          "/start - список команд\n"
+                          "/dice - случайное число от 1-6\n"
+                          # "/randint - случайное число из пользовательского диапозона\n"
+                          "/donate - поддержать автора деньгами\n")
+
 
 @bot.message_handler(commands=['dice'])
 def send_welcome(message):
-	num = randint(1, 6)
-	bot.reply_to(message, str(num))
+    num = randint(1, 6)
+    bot.reply_to(message, str(num))
+
 
 # @bot.message_handler(commands=['randint'])
 # def send_welcome(message):
