@@ -42,6 +42,13 @@
 
 [*Ссылка на бота:*](t.me/Chords_finder_bot)  *t.me/Chords_finder_bot*.
 
+| Команда | Что делает|
+| --- | --- |
+| /restart | Перезагрузить бота |
+| /wish | Случайное предсказание |
+| /donate | Поддержать автора |
+
+
 </details>
 
 <details>
