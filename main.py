@@ -14,8 +14,12 @@ def send_welcome(message):
     bot.reply_to(message, "Список команд:\n"
                           "/restart -обновить бота\n"
                           "/dice - случайное предсказание\n"
-                          "/donate - поддержать автора деньгами\n")
+                          "/donate - поддержать автора деньгами\n"
+                          "/song - найти аккорды для песни \n")
 
+@bot.message_handler(commands=['Song'])
+def send_welcome(message):
+    bot.reply_to(message, "https://google.com")
 
 @bot.message_handler(commands=['dice'])
 def send_welcome(message):
