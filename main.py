@@ -17,7 +17,7 @@ def send_welcome(message):
                           "/donate - поддержать автора деньгами\n"
                           "/song - найти аккорды для песни \n")
 
-@bot.message_handler(commands=['Song'])
+@bot.message_handler(commands=['song'])
 def send_welcome(message):
     bot.reply_to(message, "https://google.com")
 
