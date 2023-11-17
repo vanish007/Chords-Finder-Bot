@@ -1,13 +1,13 @@
 # Ерофеев Иван Константинович
-
+[![](https://img.shields.io/badge/-@vanish007-%23181717?style=flat-square&logo=github)](https://github.com/vanish007)
+![visitors](https://vbr.wocr.tk/badge?page_id=aip-python-pro-2023.works-erofeev&color=00cf00)
 <details>
 <summary>
 Обо мне
 </summary>
-
-Меня зовут Иван Ерофеев. Мне 17. Немного сведений обо мне:
-
-[![](https://img.shields.io/badge/-@vanish007-%23181717?style=flat-square&logo=github)](https://github.com/vanish007)
+  .
+  
+Меня зовут Иван Ерофеев, мне 17. Вот немного сведений обо мне:
 
 📖 Учусь в 11 классе
 
