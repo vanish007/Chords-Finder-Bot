@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 cash: Dict[Union[str, int], Pokemon] = dict()
 BasePokemonList: List[BasePokemon] = []
-PokemonList: List[BasePokemon] = []
+PokemonList: List[int] = []
 
 class color:
    PURPLE = '\033[95m'
@@ -76,7 +76,7 @@ class PokeAPI:
                 cash[name] = Poke
                 cash[id] = Poke
                 BasePokemonList.append(BasePoke)
-                PokemonList.append(Poke)
+                PokemonList.append(id)
                 return Poke
     
     @staticmethod
@@ -84,7 +84,7 @@ class PokeAPI:
         try:
             if get_full == True:
                 for data in PokemonList:
-                    yield data
+                    yield PokeAPI.get_pokemon(data)
             else:
                 for data in BasePokemonList:
                     yield data
@@ -99,7 +99,7 @@ print()
 ## task 2 ##
 mx_weight, second_mx_weight = 0, 0
 mx_name, second_mx_name = '', ''
-for i in range(1, 51):
+for i in range(1, 5):
     poke = PokeAPI.get_pokemon(i)
     print(poke)
     print()
