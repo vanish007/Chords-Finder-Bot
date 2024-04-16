@@ -8,6 +8,7 @@ cash: Dict[Union[str, int], Pokemon] = dict()
 BasePokemonList: List[BasePokemon] = []
 PokemonList: List[int] = []
 
+
 class color:
    PURPLE = '\033[95m'
    CYAN = '\033[96m'
@@ -20,6 +21,7 @@ class color:
    UNDERLINE = '\033[4m'
    END = '\033[0m'
 
+
 @dataclass(frozen=True, slots=True)
 class BasePokemon:
     name: str
@@ -27,6 +29,7 @@ class BasePokemon:
     def __str__(self) -> str:
         return f'Pokemon name is ' + color.BOLD + f'{self.name}' + color.END
     
+
 @dataclass(frozen=True, slots=True)
 class Pokemon(BasePokemon):
     id: int
@@ -39,6 +42,7 @@ class Pokemon(BasePokemon):
                f'Pokemon ID is ' + color.BOLD + f'{self.id}' + color.END + '\n' + \
                f'Pokemon height is ' + color.BOLD + f'{self.height}' + color.END + '\n' + \
                f'Pokemon weight is ' + color.BOLD + f'{self.weight}' + color.END
+
 
 class PokeError(Exception):
     def __init__(self, *args, **kwargs):
