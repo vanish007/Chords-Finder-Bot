@@ -103,7 +103,7 @@ print()
 ## task 2 ##
 mx_weight, second_mx_weight = 0, 0
 mx_name, second_mx_name = '', ''
-for i in range(1, 5):
+for i in range(1, 51):
     poke = PokeAPI.get_pokemon(i)
     print(poke)
     print()
