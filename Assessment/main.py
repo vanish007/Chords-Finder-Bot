@@ -122,6 +122,7 @@ class PokeAPI:
         except:
             raise PokeError
 
+
 print(color.BOLD + 'Hello! Welcome to my programm. Choose your task:' + color.END)
 print('1) Output "Ditto" pokemon')
 print('2) Find the heaviest pokemon')
