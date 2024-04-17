@@ -4,9 +4,11 @@ class Pokemon(BasePokemon):
     name: str
     height: int
     weight: int
+    stats: PokemonStats
     
     def __str__(self) -> str:
-        return f'Pokemon name is ' + color.BOLD + f'{self.name}' + color.END + '\n' + \
-               f'Pokemon ID is ' + color.BOLD + f'{self.id}' + color.END + '\n' + \
-               f'Pokemon height is ' + color.BOLD + f'{self.height}' + color.END + '\n' + \
-               f'Pokemon weight is ' + color.BOLD + f'{self.weight}' + color.END
+        return 'Pokemon name is ' + color.BOLD + f'{self.name}' + color.END + '\n' + \
+               'Pokemon ID is ' + color.BOLD + f'{self.id}' + color.END + '\n' + \
+               'Pokemon height is ' + color.BOLD + f'{self.height}' + color.END + '\n' + \
+               'Pokemon weight is ' + color.BOLD + f'{self.weight}' + color.END + '\n' + \
+                f'{self.stats}'
