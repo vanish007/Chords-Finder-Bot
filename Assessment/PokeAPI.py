@@ -13,8 +13,15 @@ class PokeAPI:
                 name = pokemon_data['name']
                 height = pokemon_data['height']
                 weight = pokemon_data['weight']
+                hp = pokemon_data['stats'][0]['base_stat']
+                attack = pokemon_data['stats'][1]['base_stat']
+                defense = pokemon_data['stats'][2]['base_stat']
+                special_attack = pokemon_data['stats'][3]['base_stat']
+                special_defense = pokemon_data['stats'][4]['base_stat']
+                speed = pokemon_data['stats'][5]['base_stat']
                 BasePoke = BasePokemon(name)
-                Poke = Pokemon(id=id, name=name, height=height, weight=weight)
+                PokeStats = PokemonStats(hp=hp, attack=attack, defense=defense, special_attack=special_attack, special_defense=special_defense, speed=speed)
+                Poke = Pokemon(id=id, name=name, height=height, weight=weight, stats=PokeStats)
                 cash[name] = Poke
                 cash[id] = Poke
                 BasePokemonList.append(BasePoke)
