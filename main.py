@@ -2,7 +2,7 @@ from aiogram import Bot, Dispatcher, executor
 from aiogram.types import *
 from os import environ
 from dotenv import load_dotenv
-
+from keyboards import kb, ikb
 
 load_dotenv()
 TOKEN = environ['TOKEN']
@@ -29,6 +29,7 @@ class text:
 <b>/description</b> - описание бота
 <b>/location</b> - отправить текущую локацию
 <b>/dice</b> - кинуть кубик
+<b>/links</b> - полезные ссылки
 """
     start_command_text = """
 Введите название песни в формате "АВТОР - НАЗВАНИЕ ПЕСНИ".
@@ -40,8 +41,6 @@ class text:
 
 
 count = 0
-kb = ReplyKeyboardMarkup(resize_keyboard=True)
-kb.add(KeyboardButton('/help'))
 
 
 async def on_startup(_):
@@ -53,13 +52,20 @@ async def start(message):
     await bot.send_sticker(message.from_user.id,
                            sticker='CAACAgIAAxkBAAEL8bJmISjQsNIbrvwpA0XGgfiundcbYQACQhAAAjPFKUmQDtQRpypKgjQE')
     await message.answer(text.start_command_text,
-                         parse_mode='HTML')
+                         parse_mode='HTML',
+                         reply_markup=kb)
 
 
 @dp.message_handler(commands=['help'])
 async def help(message):
     await message.reply(text.help_command_text,
                         parse_mode='HTML')
+
+
+@dp.message_handler(commands=['links'])
+async def links(message):
+    await message.answer(text='Ссылки',
+                        reply_markup=ikb)
 
 
 @dp.message_handler(commands=['description'])
