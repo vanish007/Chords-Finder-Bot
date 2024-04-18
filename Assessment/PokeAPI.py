@@ -39,3 +39,4 @@ class PokeAPI:
                     yield data
         except:
             raise PokeError
+
