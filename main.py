@@ -99,10 +99,28 @@ async def dice(message):
     await bot.send_dice(chat_id=message.from_user.id)
 
 
-@dp.message_handler(Text(equals='Кино - Пачка сигарет'))
+@dp.message_handler(Text(equals='Кино - пачка сигарет'))
 async def photo1(message):
-    bot.send_photo(chat_id=message.from_user.id,
-                   photo=)
+    await bot.send_photo(chat_id=message.from_user.id,
+                         photo=InputFile('Пачка.jpg'))
+
+
+@dp.message_handler(Text(equals='Полет шмеля'))
+async def photo1(message):
+    await bot.send_photo(chat_id=message.from_user.id,
+                         photo=InputFile('Полёт.jpg'))
+
+
+@dp.message_handler(Text(equals='Ramstein - sonne'))
+async def photo1(message):
+    await bot.send_photo(chat_id=message.from_user.id,
+                         photo=InputFile('Рамштейн.png'))
+
+
+@dp.message_handler(Text(equals='Кино - звезда по имени солнце'))
+async def photo1(message):
+    await bot.send_photo(chat_id=message.from_user.id,
+                         photo=InputFile('Звезда.jpg'))
 
 
 @dp.message_handler()
