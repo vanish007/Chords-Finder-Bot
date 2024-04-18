@@ -14,3 +14,4 @@ class PokemonStats:
                'Pokemon special attack is ' + color.BOLD + f'{self.special_attack}' + color.END + '\n' + \
                'Pokemon special defense is ' + color.BOLD + f'{self.special_defense}' + color.END + '\n' + \
                'Pokemon speed is '+ color.BOLD + f'{self.speed}' + color.END
+
