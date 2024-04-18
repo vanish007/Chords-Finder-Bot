@@ -3,11 +3,13 @@ from aiogram.types import *
 from os import environ
 from dotenv import load_dotenv
 from keyboards import kb, ikb
+from aiogram.dispatcher.filters import Text
 
 load_dotenv()
 TOKEN = environ['TOKEN']
 bot = Bot(TOKEN)
 dp = Dispatcher(bot)
+
 
 class color:
    PURPLE = '\033[95m'
@@ -20,8 +22,6 @@ class color:
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
-
-
 class text:
     help_command_text = """
 <b>/help</b> - список команд
@@ -38,11 +38,7 @@ class text:
     description_command_text = """
 Бот для сохрание ваших любимых песен в удобном формате
 """
-
-
 count = 0
-
-
 async def on_startup(_):
     print(color.YELLOW + color.BOLD + 'Бот был запущен!' + color.END)
 
@@ -60,32 +56,22 @@ async def start(message):
 async def help(message):
     await message.reply(text.help_command_text,
                         parse_mode='HTML')
-
-
 @dp.message_handler(commands=['links'])
 async def links(message):
     await message.answer(text='Ссылки',
                         reply_markup=ikb)
-
-
 @dp.message_handler(commands=['description'])
 async def description(message):
     await message.reply(text.description_command_text,
                         parse_mode='HTML')
-
-
 @dp.message_handler(commands=['location'])
 async def location(message):
     await bot.send_location(chat_id=message.from_user.id,
                             latitude=59.956621,
                             longitude=30.310571)
-
-
 @dp.message_handler(commands=['dice'])
 async def dice(message):
     await bot.send_dice(chat_id=message.from_user.id)
-
-
 @dp.message_handler()
 async def empty(message):
     global count
@@ -119,6 +105,5 @@ async def empty(message):
     else:
         await message.answer(f'Количество неправильно введенных сообщений: {count}')
     count += 1
-
 if __name__ == '__main__':
     executor.start_polling(dp, on_startup=on_startup, skip_updates=True)
