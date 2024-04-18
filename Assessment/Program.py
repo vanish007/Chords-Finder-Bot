@@ -145,7 +145,7 @@ print('2) Find the heaviest pokemon')
 print('3) Output first N pokemons')
 print('4) End the program')
 num = 1
-while num:
+while True:
     print(color.BOLD + 'Enter a task number: ' + color.END, end='')
     try:
         num = int(input())
