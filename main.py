@@ -2,7 +2,6 @@ from aiogram import Bot, Dispatcher, executor
 from aiogram.types import *
 from os import environ
 from dotenv import load_dotenv
-from keyboards import kb, ikb
 from aiogram.dispatcher.filters import Text
 
 load_dotenv()
@@ -39,6 +38,16 @@ class text:
 Бот для сохрание ваших любимых песен в удобном формате
 """
 count = 0
+kb = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+kb1 = KeyboardButton('/help')
+kb2 = KeyboardButton('/links')
+kb.add(kb1).insert(kb2)
+ikb = InlineKeyboardMarkup()
+ikb1 = InlineKeyboardButton(text='Конспект',
+                            url='https://bakasa.notion.site/Python-201-2022-2024-34a5d5401c964396864f1739592352fd')
+ikb2 = InlineKeyboardButton(text='GitHub',
+                            url='https://github.com/aip-python-pro-2023')
+ikb.add(ikb1, ikb2)
 async def on_startup(_):
     print(color.YELLOW + color.BOLD + 'Бот был запущен!' + color.END)
 
