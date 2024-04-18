@@ -6,8 +6,8 @@ class PokeError(Exception):
             self.message = kwargs[0]
         else:
             self.message = None
-            
-    def __str__(self):
+
+    def __str__(self) -> str:
         if self.message:
             return f'{self.message}'
         else:

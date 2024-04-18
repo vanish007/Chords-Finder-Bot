@@ -11,16 +11,16 @@ PokemonList: List[int] = []
 
 
 class color:
-   PURPLE = '\033[95m'
-   CYAN = '\033[96m'
-   DARKCYAN = '\033[36m'
-   BLUE = '\033[94m'
-   GREEN = '\033[92m'
-   YELLOW = '\033[93m'
-   RED = '\033[91m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
-   END = '\033[0m'
+    PURPLE = '\033[95m'
+    CYAN = '\033[96m'
+    DARKCYAN = '\033[36m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
 
 
 @dataclass(frozen=True, slots=True)
@@ -29,24 +29,25 @@ class BasePokemon:
 
     def __str__(self) -> str:
         return f'Pokemon name is ' + color.BOLD + f'{self.name}' + color.END
-    
+
 
 @dataclass(frozen=True, slots=True)
-class PokemonStats:
+class PokemonStats(BasePokemon):
     hp: int
     attack: int
     defense: int
     special_attack: int
     special_defense: int
     speed: int
-    
+
     def __str__(self) -> str:
         return 'Pokemon hp is ' + color.BOLD + f'{self.hp}' + color.END + '\n' + \
                'Pokemon attack is ' + color.BOLD + f'{self.attack}' + color.END + '\n' + \
                'Pokemon defense is ' + color.BOLD + f'{self.defense}' + color.END + '\n' + \
                'Pokemon special attack is ' + color.BOLD + f'{self.special_attack}' + color.END + '\n' + \
                'Pokemon special defense is ' + color.BOLD + f'{self.special_defense}' + color.END + '\n' + \
-               'Pokemon speed is '+ color.BOLD + f'{self.speed}' + color.END
+               'Pokemon speed is ' + color.BOLD + f'{self.speed}' + color.END
+
 
 @dataclass(frozen=True, slots=True)
 class Pokemon(BasePokemon):
@@ -55,13 +56,13 @@ class Pokemon(BasePokemon):
     height: int
     weight: int
     stats: PokemonStats
-    
+
     def __str__(self) -> str:
         return 'Pokemon name is ' + color.BOLD + f'{self.name}' + color.END + '\n' + \
                'Pokemon ID is ' + color.BOLD + f'{self.id}' + color.END + '\n' + \
                'Pokemon height is ' + color.BOLD + f'{self.height}' + color.END + '\n' + \
                'Pokemon weight is ' + color.BOLD + f'{self.weight}' + color.END + '\n' + \
-                f'{self.stats}'
+               f'{self.stats}'
 
 
 class PokeError(Exception):
@@ -72,8 +73,8 @@ class PokeError(Exception):
             self.message = kwargs[0]
         else:
             self.message = None
-            
-    def __str__(self):
+
+    def __str__(self) -> str:
         if self.message:
             return f'{self.message}'
         else:
@@ -102,14 +103,15 @@ class PokeAPI:
                 special_defense = pokemon_data['stats'][4]['base_stat']
                 speed = pokemon_data['stats'][5]['base_stat']
                 BasePoke = BasePokemon(name)
-                PokeStats = PokemonStats(hp=hp, attack=attack, defense=defense, special_attack=special_attack, special_defense=special_defense, speed=speed)
+                PokeStats = PokemonStats(hp=hp, attack=attack, defense=defense, special_attack=special_attack,
+                                         special_defense=special_defense, speed=speed)
                 Poke = Pokemon(id=id, name=name, height=height, weight=weight, stats=PokeStats)
                 cash[name] = Poke
                 cash[id] = Poke
                 BasePokemonList.append(BasePoke)
                 PokemonList.append(id)
                 return Poke
-    
+
     @staticmethod
     def get_all(get_full: bool = False) -> Generator[BasePokemon, Pokemon]:
         try:
@@ -123,6 +125,21 @@ class PokeAPI:
             raise PokeError
 
 
+def ErrorMessage(num: int) -> str:
+    if num == 1:
+        print(color.RED + color.BOLD + '####################################################')
+        print('#   Wrong input! Please enter number from 1 to 4   #')
+        print('####################################################' + color.END)
+    elif num == 2:
+        print(color.RED + color.BOLD + '##########################################')
+        print('#   Wrong input! Please enter a number   #')
+        print('##########################################' + color.END)
+    elif num == 3:
+        print(color.RED + color.BOLD + '#############################################')
+        print('#   Wrong input! Please enter digit 1 or 2  #')
+        print('#############################################' + color.END)
+
+
 print(color.BOLD + 'Hello! Welcome to my programm. Choose your task:' + color.END)
 print('1) Output "Ditto" pokemon')
 print('2) Find the heaviest pokemon')
@@ -134,9 +151,7 @@ while num:
     try:
         num = int(input())
     except:
-        print(color.RED + color.BOLD + '####################################################')
-        print('#   Wrong input! Please enter number from 1 to 4   #')
-        print('####################################################' + color.END)
+        ErrorMessage(1)
         continue
     if num == 1:
         print('-----------task 1 begin----------')
@@ -170,8 +185,10 @@ while num:
         print('Done!')
         print()
         sleep(0.5)
-        print('The heaviest pokemon is ' + mx_name + ' with a total weight of ' + str(mx_weight) + '. '\
-            'He is ' + str(mx_weight - second_mx_weight) + ' pokekilos heavier than second heaviest pokemon - ' + str(second_mx_name) + '.')
+        print('The heaviest pokemon is ' + mx_name + ' with a total weight of ' + str(mx_weight) + '. ' \
+                                                                                                   'He is ' + str(
+            mx_weight - second_mx_weight) + ' pokekilos heavier than second heaviest pokemon - ' + str(
+            second_mx_name) + '.')
         print('-----------task 2 end------------')
     elif num == 3:
         print('-----------task 3 begin----------')
@@ -181,13 +198,11 @@ while num:
                 n = int(input())
                 break
             except:
-                print(color.RED + color.BOLD + '##########################################')
-                print('#   Wrong input! Please enter a number   #')
-                print('##########################################' + color.END)
+                ErrorMessage(2)
                 continue
         print('Program is looking for information...')
         print('Currently processed pokemons:\t0', end='')
-        for i in range(1, n+1):
+        for i in range(1, n + 1):
             if i < 10:
                 print('\b\b', i, end='')
             elif i < 100:
@@ -209,9 +224,7 @@ while num:
             try:
                 ans = int(input())
             except:
-                print(color.RED + color.BOLD + '#############################################')
-                print('#   Wrong input! Please enter digit 1 or 2  #')
-                print('#############################################' + color.END)
+                ErrorMessage(3)
                 continue
             if ans == 1:
                 for i in PokeAPI.get_all(True):
@@ -223,16 +236,12 @@ while num:
                     print(i)
                 break
             else:
-                print(color.RED + color.BOLD + '##############################################')
-                print('#   Wrong input! Please enter digit 1 or 2  #')
-                print('#############################################' + color.END)
+                ErrorMessage(2)
                 continue
         print('-----------task 3 end------------')
     elif num == 4:
         print('Goodbye, have a good day!')
         break
     else:
-        print(color.RED + color.BOLD + '####################################################')
-        print('#   Wrong input! Please enter number from 1 to 4   #')
-        print('####################################################' + color.END)
+        ErrorMessage(1)
         continue
