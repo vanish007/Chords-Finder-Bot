@@ -4,7 +4,6 @@ import requests
 from dataclasses import dataclass
 from time import sleep
 
-
 cash: Dict[Union[str, int], Pokemon] = dict()
 BasePokemonList: List[BasePokemon] = []
 PokemonList: List[int] = []
@@ -32,7 +31,7 @@ class BasePokemon:
 
 
 @dataclass(frozen=True, slots=True)
-class PokemonStats(BasePokemon):
+class PokemonStats:
     hp: int
     attack: int
     defense: int
@@ -74,7 +73,7 @@ class PokeError(Exception):
         else:
             self.message = None
 
-    def __str__(self) -> str:
+    def __str__(self):
         if self.message:
             return f'{self.message}'
         else:
@@ -140,7 +139,7 @@ def ErrorMessage(num: int) -> str:
         print('#############################################' + color.END)
 
 
-print(color.BOLD + 'Hello! Welcome to my programm. Choose your task:' + color.END)
+print(color.BOLD + 'Hello! Welcome to my program. Choose your task:' + color.END)
 print('1) Output "Ditto" pokemon')
 print('2) Find the heaviest pokemon')
 print('3) Output first N pokemons')
@@ -154,7 +153,7 @@ while num:
         ErrorMessage(1)
         continue
     if num == 1:
-        print('-----------task 1 begin----------')
+        print(color.YELLOW + '-----------task 1 begin----------' + color.END)
         print('Program is looking for information...')
         sleep(0.5)
         ditto = PokeAPI.get_pokemon('ditto')
@@ -162,14 +161,14 @@ while num:
         print()
         sleep(0.5)
         print(ditto)
-        print('-----------task 1 end------------')
+        print(color.YELLOW + '-----------task 1 end------------' + color.END)
     elif num == 2:
-        print('-----------task 2 begin----------')
+        print(color.YELLOW + '-----------task 2 begin----------' + color.END)
         print('Program is looking for information...')
         sleep(0.5)
         mx_weight, second_mx_weight = 0, 0
         mx_name, second_mx_name = '', ''
-        print('Currently processed pokemons:\t0', end='')
+        print('Currently processed pokemons:  0', end='')
         for i in range(1, 51):
             poke = PokeAPI.get_pokemon(i)
             if i < 10:
@@ -185,13 +184,13 @@ while num:
         print('Done!')
         print()
         sleep(0.5)
-        print('The heaviest pokemon is ' + mx_name + ' with a total weight of ' + str(mx_weight) + '. ' \
-                                                                                                   'He is ' + str(
-            mx_weight - second_mx_weight) + ' pokekilos heavier than second heaviest pokemon - ' + str(
-            second_mx_name) + '.')
-        print('-----------task 2 end------------')
+        print(color.BOLD + 'The heaviest pokemon is ' + mx_name + \
+              ' with a total weight of ' + str(mx_weight) + '. ' \
+            'He is ' + str(mx_weight - second_mx_weight) + \
+              ' pokekilos heavier than second heaviest pokemon - ' + str(second_mx_name) + '.' + color.END)
+        print(color.YELLOW + '-----------task 2 end------------' + color.END)
     elif num == 3:
-        print('-----------task 3 begin----------')
+        print(color.YELLOW + '-----------task 3 begin----------' + color.END)
         while True:
             print(color.BOLD + 'Enter N: ' + color.END, end='')
             try:
@@ -203,6 +202,7 @@ while num:
         print('Program is looking for information...')
         print('Currently processed pokemons:\t0', end='')
         for i in range(1, n + 1):
+            temp = PokeAPI.get_pokemon(i)
             if i < 10:
                 print('\b\b', i, end='')
             elif i < 100:
@@ -211,7 +211,6 @@ while num:
                 print('\b\b\b\b', i, end='')
             else:
                 print('\b\b\b\b\b', i, end='')
-            temp = PokeAPI.get_pokemon(i)
         sleep(0.5)
         print()
         print('Done!')
@@ -224,7 +223,7 @@ while num:
             try:
                 ans = int(input())
             except:
-                ErrorMessage(3)
+                ErrorMessage(2)
                 continue
             if ans == 1:
                 for i in PokeAPI.get_all(True):
@@ -238,9 +237,9 @@ while num:
             else:
                 ErrorMessage(2)
                 continue
-        print('-----------task 3 end------------')
+        print(color.YELLOW + '-----------task 3 end------------' + color.END)
     elif num == 4:
-        print('Goodbye, have a good day!')
+        print('Goodbye, have a good day!', end='')
         break
     else:
         ErrorMessage(1)
