@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher, executor
+from aiogram.types import *
 from os import environ
 from dotenv import load_dotenv
-from random import randint
 
 
 load_dotenv()
@@ -9,16 +9,30 @@ TOKEN = environ['TOKEN']
 bot = Bot(TOKEN)
 dp = Dispatcher(bot)
 
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
+
 
 class text:
     help_command_text = """
-/помощь - список команд
-/старт - начать работу с ботом
-/описание - описание бота
+<b>/help</b> - список команд
+<b>/start</b> - начать работу с ботом
+<b>/description</b> - описание бота
+<b>/location</b> - отправить текущую локацию
+<b>/dice</b> - кинуть кубик
 """
     start_command_text = """
 Введите название песни в формате "АВТОР - НАЗВАНИЕ ПЕСНИ".
-Например: Кино - Звезда по имени солнце.'
+Например: <em>Кино - Звезда по имени солнце.</em>'
 """
     description_command_text = """
 Бот для сохрание ваших любимых песен в удобном формате
@@ -26,19 +40,45 @@ class text:
 
 
 count = 0
+kb = ReplyKeyboardMarkup(resize_keyboard=True)
+kb.add(KeyboardButton('/help'))
 
 
-@dp.message_handler(commands=['описание'])
-async def description(message):
-    await message.reply(text.description_command_text)
+async def on_startup(_):
+    print(color.YELLOW + color.BOLD + 'Бот был запущен!' + color.END)
 
-@dp.message_handler(commands=['помощь'])
-async def help(message):
-    await message.reply(text.help_command_text)
 
-@dp.message_handler(commands=['старт'])
+@dp.message_handler(commands=['start'])
 async def start(message):
-    await message.answer(text.start_command_text)
+    await bot.send_sticker(message.from_user.id,
+                           sticker='CAACAgIAAxkBAAEL8bJmISjQsNIbrvwpA0XGgfiundcbYQACQhAAAjPFKUmQDtQRpypKgjQE')
+    await message.answer(text.start_command_text,
+                         parse_mode='HTML')
+
+
+@dp.message_handler(commands=['help'])
+async def help(message):
+    await message.reply(text.help_command_text,
+                        parse_mode='HTML')
+
+
+@dp.message_handler(commands=['description'])
+async def description(message):
+    await message.reply(text.description_command_text,
+                        parse_mode='HTML')
+
+
+@dp.message_handler(commands=['location'])
+async def location(message):
+    await bot.send_location(chat_id=message.from_user.id,
+                            latitude=59.956621,
+                            longitude=30.310571)
+
+
+@dp.message_handler(commands=['dice'])
+async def dice(message):
+    await bot.send_dice(chat_id=message.from_user.id)
+
 
 @dp.message_handler()
 async def empty(message):
@@ -47,19 +87,32 @@ async def empty(message):
         await message.answer('Вы ввели неправильную команду...')
     elif count == 1:
         await message.answer('Вы снова ввели неправильную команду...')
-    elif (count % 10 == 2 or count % 10 == 3 or count % 10 == 4) and count != 12 and count != 13 and count != 14:
-        if count >= 10:
-            t = (count // 10) * 10
-            await message.answer(f'Вы ввели неправильную команду уже {t} раз... Возможно вам стоит заняться чем-то более полезным.')
-        else:
-            await message.answer(f'Вы ввели неправильную команду {count} раза...')
+    elif count == 2 or count == 3 or count == 4:
+        await message.answer(f'Вы ввели неправильную команду {count} раза...')
+    elif count <= 8:
+        await message.answer(f'Вы ввели неправильную команду уже {count} раз...'
+                             f' Возможно вам стоит заняться чем-то более полезным.')
+    elif count == 9:
+        await bot.send_sticker(message.from_user.id,
+                               sticker='CAACAgIAAxkBAAEL8cZmISloxUKV7jZqmMS8r94RWonulwACOhoAAknO8UldsQbBX-XwlTQE')
+    elif count == 10:
+        await bot.send_sticker(message.from_user.id,
+                               sticker='CAACAgIAAxkBAAEL8c5mISmE7MEwzDFscb660eAgYifU2wACrBUAAvMKqUro9MnxJkxytjQE')
+    elif count == 11:
+        await bot.send_sticker(message.from_user.id,
+                               sticker='CAACAgIAAxkBAAEL8dFmISmLENp-KrLDZ8cAAdsFf2TodsoAAs4ZAAKJEBBKhq0wFniF8sA0BA')
+    elif count == 12:
+        await bot.send_sticker(message.from_user.id,
+                               sticker='CAACAgIAAxkBAAEL8dJmISmMWQiEiNvoXJy8LllQmV9bZQACeRYAAmgXEUqU9j6hEXb3kjQE')
+    elif count == 13:
+        await bot.send_sticker(message.from_user.id,
+                               sticker='CAACAgIAAxkBAAEL8f1mIS0DYqos_QRvHM4FS3rEv8xLBQACJhUAAhY-IUsHeV052qwVRDQE')
+    elif count == 14:
+        await bot.send_sticker(message.from_user.id,
+                               sticker='CAACAgIAAxkBAAEL8f9mIS0HizrXyvB4J71Of5x7sX7sxgAC_xcAAuARIEtG8X3ZtfBuuTQE')
     else:
-        if count >=  10:
-            t = (count // 10) * 10
-            await message.answer(f'Вы ввели неправильную команду уже {t} раз... Возможно вам стоит заняться чем-то более полезным.')
-        else:
-            await message.answer(f'Вы ввели неправильную команду {count} раз...')
+        await message.answer(f'Количество неправильно введенных сообщений: {count}')
     count += 1
 
 if __name__ == '__main__':
-    executor.start_polling(dp)
+    executor.start_polling(dp, on_startup=on_startup, skip_updates=True)
