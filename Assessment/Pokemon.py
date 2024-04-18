@@ -12,3 +12,4 @@ class Pokemon(BasePokemon):
                'Pokemon height is ' + color.BOLD + f'{self.height}' + color.END + '\n' + \
                'Pokemon weight is ' + color.BOLD + f'{self.weight}' + color.END + '\n' + \
                 f'{self.stats}'
+
