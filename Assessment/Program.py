@@ -126,17 +126,17 @@ class PokeAPI:
 
 def ErrorMessage(num: int) -> str:
     if num == 1:
-        print(color.RED + color.BOLD + '####################################################')
-        print('#   Wrong input! Please enter number from 1 to 4   #')
-        print('####################################################' + color.END)
+        return color.RED + color.BOLD + '####################################################\n'+\
+        '#   Wrong input! Please enter number from 1 to 4   #\n' +\
+        '####################################################' + color.END
     elif num == 2:
-        print(color.RED + color.BOLD + '##########################################')
-        print('#   Wrong input! Please enter a number   #')
-        print('##########################################' + color.END)
+        return color.RED + color.BOLD + '##########################################\n'+\
+               '#   Wrong input! Please enter a number   #\n'+\
+              '##########################################' + color.END
     elif num == 3:
-        print(color.RED + color.BOLD + '#############################################')
-        print('#   Wrong input! Please enter digit 1 or 2  #')
-        print('#############################################' + color.END)
+        return color.RED + color.BOLD + '#############################################\n'+\
+               '#   Wrong input! Please enter digit 1 or 2  #\n'+\
+               '#############################################' + color.END
 
 
 print(color.BOLD + 'Hello! Welcome to my program. Choose your task:' + color.END)
@@ -150,7 +150,7 @@ while num:
     try:
         num = int(input())
     except:
-        ErrorMessage(1)
+        print(ErrorMessage(1))
         continue
     if num == 1:
         print(color.YELLOW + '-----------task 1 begin----------' + color.END)
@@ -168,7 +168,7 @@ while num:
         sleep(0.5)
         mx_weight, second_mx_weight = 0, 0
         mx_name, second_mx_name = '', ''
-        print('Currently processed pokemons:  0', end='')
+        print('Currently processed pokemons:     0', end='')
         for i in range(1, 51):
             poke = PokeAPI.get_pokemon(i)
             if i < 10:
@@ -197,10 +197,10 @@ while num:
                 n = int(input())
                 break
             except:
-                ErrorMessage(2)
+                print(ErrorMessage(2))
                 continue
         print('Program is looking for information...')
-        print('Currently processed pokemons:\t0', end='')
+        print('Currently processed pokemons:     0', end='')
         for i in range(1, n + 1):
             temp = PokeAPI.get_pokemon(i)
             if i < 10:
@@ -223,24 +223,24 @@ while num:
             try:
                 ans = int(input())
             except:
-                ErrorMessage(2)
+                print(ErrorMessage(3))
                 continue
             if ans == 1:
-                for i in PokeAPI.get_all(True):
+                for n, i in enumerate(PokeAPI.get_all(True)):
+                    print(f'{n+1}: ')
                     print(i)
-                    print()
                 break
             elif ans == 2:
-                for i in PokeAPI.get_all(False):
-                    print(i)
+                for n, i in enumerate(PokeAPI.get_all(False)):
+                    print(f'{n+1}: {i}')
                 break
             else:
-                ErrorMessage(2)
+                print(ErrorMessage(3))
                 continue
         print(color.YELLOW + '-----------task 3 end------------' + color.END)
     elif num == 4:
-        print('Goodbye, have a good day!', end='')
+        print(color.YELLOW + 'Goodbye, have a good day!' + color.END, end='')
         break
     else:
-        ErrorMessage(1)
+        print(ErrorMessage(1))
         continue
