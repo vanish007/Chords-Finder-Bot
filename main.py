@@ -3,6 +3,8 @@ from aiogram.types import *
 from os import environ
 from dotenv import load_dotenv
 from aiogram.dispatcher.filters import Text
+from time import sleep
+
 
 load_dotenv()
 TOKEN = environ['TOKEN']
@@ -54,8 +56,106 @@ ikb1 = InlineKeyboardButton(text='Конспект',
 ikb2 = InlineKeyboardButton(text='GitHub',
                             url='https://github.com/aip-python-pro-2023')
 ikb.add(ikb1, ikb2)
+nbp = InlineKeyboardMarkup()
+nbp1 = InlineKeyboardButton(text='.pdf',
+                           callback_data='11')
+nbp2 = InlineKeyboardButton(text='.txt',
+                           callback_data='12')
+nbp.add(nbp1, nbp2)
+ptxt = """
+　 Em 　 　Am 　　 　　 　C　　 　 D 　　　Em
+Я сижу и смотрю в чужое небо из чужого окна
+　　Am　　　　C　　　D　　　　Em
+И не вижу ни одной знакомой звезды.
+　　Am　　　　　 C　　　D　　　　Em
+Я ходил по всем дорогам и туда, и сюда,
+　　Am　　　　 　 C　　　　 D　　　Em
+Обернулся - и не смог разглядеть следы.
 
 
+Припев:
+
+　　 　Am　　　　　　C　　D　　Em
+Но если есть в кармане пачка сигарет,
+
+　　 　Am　　　　　　C　　　　D　　　　　Em
+Значит все не так уж плохо на сегодняшний день.
+
+　　 Am　　　　C　　　　　D　　　　Em
+И билет на самолет с серебристым крылом,
+
+　　 　Am　　　　C　　　　D　　　Em
+Что, взлетая, оставляет земле лишь тень.
+
+2 Куплет
+
+И никто не хотел быть виноватым без вина,
+И никто не хотел руками жар загребать,
+А без музыки на миру смерть не красна,
+А без музыки не хочется пропадать.
+"""
+zbp = InlineKeyboardMarkup()
+zbp1 = InlineKeyboardButton(text='.pdf',
+                           callback_data='21')
+zbp2 = InlineKeyboardButton(text='.txt',
+                           callback_data='22')
+zbp.add(zbp1, zbp2)
+ztxt = """
+　 　 　Am(4)
+Белый снег, серый лед,
+　　　　C(4)
+На растрескавшейся земле.
+　Dm(4)
+Одеялом лоскутным на ней -
+G(4)
+Город в дорожной петле.
+　　　Am(4)
+А над городом плывут облака,
+　　C(4)
+Закрывая небесный свет.
+　　　 Dm(4)
+А над городом - желтый дым,
+G(4)
+Городу две тысячи лет,
+　Dm(4)
+Прожитых под светом Звезды
+　　　　Am (4)
+По имени Солнце...
+
+И две тысячи лет - война,
+Война без особых причин.
+Война - дело молодых,
+Лекарство против морщин.
+Красная, красная кровь -
+Через час уже просто земля,
+Через два на ней цветы и трава,
+Через три она снова жива
+И согрета лучами Звезды
+По имени Солнце...
+
+И мы знаем, что так было всегда,
+Что судьбою больше любим,
+Кто живет по законам другим
+И кому умирать молодым.
+Он не помнит слово "да" и слово "нет",
+Он не помнит ни чинов, ни имен.
+И способен дотянуться до звезд,
+Не считая, что это сон,
+И упасть, опаленным Звездой
+По имени Солнце...
+"""
+rbp = InlineKeyboardMarkup()
+rbp1 = InlineKeyboardButton(text='.pdf',
+                           callback_data='31')
+rbp2 = InlineKeyboardButton(text='.txt',
+                           callback_data='32')
+rbp.add(rbp1, rbp2)
+sbp = InlineKeyboardMarkup()
+sbp1 = InlineKeyboardButton(text='.pdf',
+                           callback_data='41')
+sbp2 = InlineKeyboardButton(text='.txt',
+                           callback_data='42')
+sbp.add(sbp1, sbp2)
 async def on_startup(_):
     print(color.YELLOW + color.BOLD + 'Бот был запущен!' + color.END)
 
@@ -100,27 +200,67 @@ async def dice(message):
 
 
 @dp.message_handler(Text(equals='Кино - пачка сигарет'))
-async def photo1(message):
-    await bot.send_photo(chat_id=message.from_user.id,
-                         photo=InputFile('Пачка.jpg'))
+async def pachka1(message):
+    await message.answer('Подождите, идет поиск...')
+    sleep(1)
+    await bot.send_message(chat_id=message.from_user.id,
+                     text='Аккорды найдены. Выберите формат',
+                     reply_markup=nbp)
 
 
 @dp.message_handler(Text(equals='Полет шмеля'))
 async def photo1(message):
-    await bot.send_photo(chat_id=message.from_user.id,
-                         photo=InputFile('Полёт.jpg'))
+    await message.answer('Подождите, идет поиск...')
+    sleep(1)
+    await bot.send_message(chat_id=message.from_user.id,
+                           text='Аккорды найдены. Выберите формат',
+                           reply_markup=sbp)
 
 
 @dp.message_handler(Text(equals='Ramstein - sonne'))
 async def photo1(message):
-    await bot.send_photo(chat_id=message.from_user.id,
-                         photo=InputFile('Рамштейн.png'))
+    await message.answer('Подождите, идет поиск...')
+    sleep(1)
+    await bot.send_message(chat_id=message.from_user.id,
+                           text='Аккорды найдены. Выберите формат',
+                           reply_markup=rbp)
 
 
 @dp.message_handler(Text(equals='Кино - звезда по имени солнце'))
 async def photo1(message):
-    await bot.send_photo(chat_id=message.from_user.id,
-                         photo=InputFile('Звезда.jpg'))
+    await message.answer('Подождите, идет поиск...')
+    sleep(1)
+    await bot.send_message(chat_id=message.from_user.id,
+                           text='Аккорды найдены. Выберите формат',
+                           reply_markup=zbp)
+
+
+@dp.callback_query_handler()
+async def queru(callback):
+    if callback.data == '11':
+        await bot.send_photo(chat_id =callback.message.chat.id,
+                             photo=InputFile('Пачка.jpg'))
+        await callback.answer()
+    elif callback.data == '12':
+        await callback.message.answer(ptxt)
+        await callback.answer()
+    elif callback.data == '21':
+        await bot.send_photo(chat_id=callback.message.chat.id,
+                             photo=InputFile('Звезда.jpg'))
+        await callback.answer()
+    elif callback.data == '22':
+        await callback.message.answer(ztxt)
+        await callback.answer()
+    elif callback.data == '31':
+        await bot.send_photo(chat_id=callback.message.chat.id,
+                             photo=InputFile('Рамштейн.png'))
+        await callback.answer()
+    elif callback.data == '41':
+        await bot.send_photo(chat_id=callback.message.chat.id,
+                             photo=InputFile('Полёт.jpg'))
+        await callback.answer()
+
+
 
 
 @dp.message_handler()
